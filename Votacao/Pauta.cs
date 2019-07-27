@@ -4,15 +4,15 @@ namespace Votacao
 {
     class Pauta
     {  
-        public List<Pauta> lst_pautas { get; set; } 
-        public string id_Pauta { get; set; }
+        public int id_Pauta { get; set; }
         public string nome_Pauta { get; set; }
+        public int votos_Favor { get; set; }
+        public int votos_Contra { get; set; }
         public List<Eleitor> lst_eleitores { get; set; } 
-        public Eleitor eleitor { get; set; }
 
-        public Pauta(string idPauta, string nomePauta)
+        public Pauta(int idPauta, string nomePauta, List<Eleitor> lst_eleitor)
         {
-
+            lst_eleitores = lst_eleitor;
             id_Pauta = idPauta;
             nome_Pauta = nomePauta;
             
@@ -27,6 +27,7 @@ namespace Votacao
     {
         public string Nome { get; set; }
         public string cpf { get; set; }
+
         public Eleitor(string nome, string CPF)
         {
             Nome = nome;

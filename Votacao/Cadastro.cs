@@ -7,29 +7,36 @@ namespace Votacao
     {
         public void CadastrarPautas()
         {
-
-            List<Pauta> lst_pautas = new List<Pauta>();
-            Eleitor eleitor = new Eleitor();
+            string caminho = "list_pauta.json";
+            List<Pauta> lst_pautas = JsonManipula.Desserializador(caminho);
+            var pauta = new Pauta();
             Console.Write("Digite o nome da Pauta: ");
-            string nome_Pauta = Console.ReadLine();
-            Console.Write("Digite o ID da Pauta: ");
-            string id_Pauta = Console.ReadLine();
-            Pauta pt = new Pauta(id_Pauta, nome_Pauta);
-            lst_pautas.Add(pt);
-
+            pauta.nome_Pauta = Console.ReadLine();
+            pauta.id_Pauta = lst_pautas.Count;
+            lst_pautas.Add(pauta);
+            JsonManipula.Serializador(lst_pautas, caminho);
         }
+
 
         public void CadastrarEleitores()
         {
-
-            List<Eleitor> lst_eleitores = new List<Eleitor>();              
+            string caminho = "list_eleitor.json";
+            List<Eleitor> lst_eleitores = JsonManipula.DesserializadorEleitor(caminho);
             Console.Write("Digite o nome do Eleitor: ");
             string Nome = Console.ReadLine();
             Console.Write("Digite o CPF do Eleitor: ");
             string cpf = Console.ReadLine();
+
+            if (lst_eleitores.Exists(a => a.cpf == cpf))
+            {
+                Console.WriteLine("CPF Cadastrado!");
+                return;
+            }
+
+
             Eleitor Eleitor = new Eleitor(Nome, cpf);
             lst_eleitores.Add(Eleitor);
-
+            JsonManipula.Serializador(lst_eleitores, caminho);
         }
 
     }
